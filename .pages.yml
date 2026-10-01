@@ -194,7 +194,7 @@ content:
         list: true
         view:
           primary: title
-          fields: [section, priceLabel, badge]
+          fields: [section, price, badge]
           sort: section
           order: asc
         fields:
@@ -211,14 +211,10 @@ content:
             type: text
             required: true
           - name: price
-            label: "Цена (число)"
+            label: Цена
             type: number
             required: true
-          - name: priceLabel
-            label: Цена на карточке
-            type: string
-            required: true
-            description: "Как видит покупатель, например от 290 ₽."
+            description: "В рублях. На сайте и в корзине будет одна и та же сумма."
           - name: section
             label: Раздел
             type: select

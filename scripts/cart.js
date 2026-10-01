@@ -68,3 +68,10 @@ export function formatRub(value) {
     maximumFractionDigits: 0,
   }).format(value);
 }
+
+/** Одна цена для карточки, модалки и корзины — только поле price */
+export function productPriceLabel(product) {
+  const price = Number(product?.price);
+  if (!Number.isFinite(price)) return "—";
+  return `от ${formatRub(price)}`;
+}

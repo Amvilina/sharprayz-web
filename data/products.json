@@ -2,8 +2,7 @@
   {
     "title": "Тестовый товар",
     "description": "Это крутой товар, очень очень здоровский он",
-    "price": 999,
-    "priceLabel": "599",
+    "price": 599,
     "section": "К праздникам",
     "image": "assets/products/logo-mark.png",
     "badge": "Хит"

@@ -2,6 +2,7 @@ import {
   addToCart,
   changeQty,
   formatRub,
+  productPriceLabel,
   clearCart,
   getCartCount,
   getCartTotal,
@@ -93,7 +94,8 @@ async function loadSite() {
     const title = String(product.title || "").trim();
     let id = String(product.id || "").trim();
     if (!id) id = slugifySectionLabel(title) || `item-${index + 1}`;
-    return { ...product, id, title };
+    const price = Number(product.price);
+    return { ...product, id, title, price: Number.isFinite(price) ? price : 0 };
   });
   productImage = siteData.productImage || "assets/logo-mark.png";
   productsById = new Map(siteData.products.map((product) => [product.id, product]));
@@ -136,7 +138,7 @@ function productCardHtml(product) {
           ${productMediaHtml(product)}
         </div>
         <div class="product__meta">
-          <p class="product__price">${product.priceLabel}</p>
+          <p class="product__price">${productPriceLabel(product)}</p>
           <h3 class="product__title">${product.title}</h3>
           <p class="product__description">${product.description}</p>
         </div>
@@ -373,7 +375,7 @@ function openProductModal(productId) {
     product.title
   );
   document.getElementById("product-modal-title").textContent = product.title;
-  document.getElementById("product-modal-price").textContent = product.priceLabel;
+  document.getElementById("product-modal-price").textContent = productPriceLabel(product);
   document.getElementById("product-modal-desc").textContent =
     product.description || "Состав и цвет уточняйте у менеджера при заказе.";
   refreshModalActions();
