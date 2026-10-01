@@ -29,8 +29,16 @@
     "lead": "Шары с гелием, оформление, сувениры и всё для праздника под ключ. Принимаем заказы с 9:00 до 22:00."
   },
   "nav": [
-    { "id": "svechi", "label": "Свечки", "links": [] },
-    { "id": "posuda", "label": "Одноразовая посуда", "links": [] },
+    {
+      "id": "svechi",
+      "label": "Свечки",
+      "links": []
+    },
+    {
+      "id": "posuda",
+      "label": "Одноразовая посуда",
+      "links": []
+    },
     {
       "id": "upakovka",
       "label": "Коробки, ленты, бантики, упаковочная бумага",
@@ -39,188 +47,51 @@
     {
       "id": "suveniry",
       "label": "Подарочные сувениры",
-      "links": ["Пивные бокалы", "Именные кружки", "Ложки и др."]
-    },
-    { "id": "maski", "label": "Карнавальные маски", "links": [] },
-    { "id": "korony", "label": "Детские короны, волшебные палочки", "links": [] },
-    { "id": "roost", "label": "Ростовые фигуры из шаров", "links": [] },
-    { "id": "edible", "label": "Съедобные букеты", "links": [] },
-    { "id": "fonari", "label": "Воздушные фонари", "links": [] },
-    { "id": "photozone", "label": "Фотозона", "links": [] },
-    { "id": "arki", "label": "Арки на открытие магазина", "links": [] },
-    { "id": "nad-pisi", "label": "Индивидуальные надписи для шаров", "links": [] }
-  ],
-  "products": [
-    {
-      "id": "svechi-1",
-      "title": "Свечи-цифры на торт",
-      "description": "Цифры 0–9, подставка в комплекте. Подберём нужный возраст.",
-      "price": 290,
-      "priceLabel": "от 290 ₽",
-      "section": "svechi"
+      "links": [
+        "Пивные бокалы",
+        "Именные кружки",
+        "Ложки и др."
+      ]
     },
     {
-      "id": "svechi-2",
-      "title": "Фонтаны для торта",
-      "description": "Искрящиеся фонтаны, безопасные для домашнего торта.",
-      "price": 450,
-      "priceLabel": "от 450 ₽",
-      "section": "svechi",
-      "badge": "Хит"
+      "id": "maski",
+      "label": "Карнавальные маски",
+      "links": []
     },
     {
-      "id": "posuda-1",
-      "title": "Набор одноразовых тарелок",
-      "description": "10 тарелок, яркий дизайн для детского праздника.",
-      "price": 180,
-      "priceLabel": "от 180 ₽",
-      "section": "posuda"
+      "id": "korony",
+      "label": "Детские короны, волшебные палочки",
+      "links": []
     },
     {
-      "id": "posuda-2",
-      "title": "Стаканы с крышкой",
-      "description": "Набор 20 шт., не проливаются — удобно для улицы.",
-      "price": 320,
-      "priceLabel": "от 320 ₽",
-      "section": "posuda"
+      "id": "roost",
+      "label": "Ростовые фигуры из шаров",
+      "links": []
     },
     {
-      "id": "upakovka-1",
-      "title": "Коробка для шаров",
-      "description": "Прозрачная коробка-сюрприз, лента в комплекте.",
-      "price": 890,
-      "priceLabel": "от 890 ₽",
-      "section": "upakovka"
+      "id": "edible",
+      "label": "Съедобные букеты",
+      "links": []
     },
     {
-      "id": "upakovka-2",
-      "title": "Набор лент и бантиков",
-      "description": "5 цветов атласных лент, бантики готовые и на сборку.",
-      "price": 420,
-      "priceLabel": "от 420 ₽",
-      "section": "upakovka"
+      "id": "fonari",
+      "label": "Воздушные фонари",
+      "links": []
     },
     {
-      "id": "suveniry-1",
-      "title": "Именная кружка",
-      "description": "Печать имени или поздравления, готовность 1–2 дня.",
-      "price": 650,
-      "priceLabel": "от 650 ₽",
-      "section": "suveniry"
+      "id": "photozone",
+      "label": "Фотозона",
+      "links": []
     },
     {
-      "id": "suveniry-2",
-      "title": "Пивной бокал с гравировкой",
-      "description": "Подарок мужчине, текст по вашему макету.",
-      "price": 790,
-      "priceLabel": "от 790 ₽",
-      "section": "suveniry"
+      "id": "arki",
+      "label": "Арки на открытие магазина",
+      "links": []
     },
     {
-      "id": "maski-1",
-      "title": "Маски «Супергерои»",
-      "description": "Набор 6 масок для детской вечеринки.",
-      "price": 550,
-      "priceLabel": "от 550 ₽",
-      "section": "maski"
-    },
-    {
-      "id": "korony-1",
-      "title": "Корона именинника",
-      "description": "Блестящая корона, универсальный размер.",
-      "price": 350,
-      "priceLabel": "от 350 ₽",
-      "section": "korony"
-    },
-    {
-      "id": "korony-2",
-      "title": "Волшебная палочка со звёздочкой",
-      "description": "Для princess-party и фотосессий.",
-      "price": 280,
-      "priceLabel": "от 280 ₽",
-      "section": "korony"
-    },
-    {
-      "id": "roost-1",
-      "title": "Ростовая фигура «Медведь»",
-      "description": "Из шаров, высота около 1,5 м, доставка и установка.",
-      "price": 4500,
-      "priceLabel": "от 4 500 ₽",
-      "section": "roost",
-      "badge": "Хит"
-    },
-    {
-      "id": "roost-2",
-      "title": "Фигура «Щенячий патруль»",
-      "description": "Тематическая фигура для дня рождения ребёнка.",
-      "price": 2600,
-      "priceLabel": "от 2 600 ₽",
-      "section": "roost"
-    },
-    {
-      "id": "edible-1",
-      "title": "Съедобный букет «Конфеты»",
-      "description": "Skittles, Raffaello или микс — упаковка как у цветов.",
-      "price": 1800,
-      "priceLabel": "от 1 800 ₽",
-      "section": "edible"
-    },
-    {
-      "id": "edible-2",
-      "title": "Букет из Kinder",
-      "description": "Популярный подарок, ленты и открытка по желанию.",
-      "price": 2200,
-      "priceLabel": "от 2 200 ₽",
-      "section": "edible"
-    },
-    {
-      "id": "fonari-1",
-      "title": "Небесный фонарик",
-      "description": "Белый или цветной, для вечернего запуска.",
-      "price": 150,
-      "priceLabel": "от 150 ₽",
-      "section": "fonari"
-    },
-    {
-      "id": "photozone-1",
-      "title": "Комплект фотозоны «День рождения»",
-      "description": "Фон, garland из шаров, надпись Happy Birthday.",
-      "price": 3500,
-      "priceLabel": "от 3 500 ₽",
-      "section": "photozone"
-    },
-    {
-      "id": "photozone-2",
-      "title": "Облако шаров для зала",
-      "description": "50 шаров под потолок, монтаж на месте.",
-      "price": 3800,
-      "priceLabel": "от 3 800 ₽",
-      "section": "photozone",
-      "badge": "Новинка"
-    },
-    {
-      "id": "arki-1",
-      "title": "Арка на открытие",
-      "description": "Классическая арка из шаров, цвета бренда магазина.",
-      "price": 5200,
-      "priceLabel": "от 5 200 ₽",
-      "section": "arki"
-    },
-    {
-      "id": "nad-pisi-1",
-      "title": "Цифра фольгированная",
-      "description": "86 см, гелий, лента. Цвет на выбор.",
-      "price": 990,
-      "priceLabel": "от 990 ₽",
-      "section": "nad-pisi"
-    },
-    {
-      "id": "nad-pisi-2",
-      "title": "Надпись на шарах",
-      "description": "До 30 символов, печать на латексе или фольге.",
-      "price": 1200,
-      "priceLabel": "от 1 200 ₽",
-      "section": "nad-pisi"
+      "id": "nad-pisi",
+      "label": "Индивидуальные надписи для шаров",
+      "links": []
     }
   ],
   "paymentMethods": [

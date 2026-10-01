@@ -38,46 +38,16 @@ function showDialog(dialog) {
 }
 
 async function loadSite() {
-  const response = await fetch("data/site.json");
-  if (!response.ok) throw new Error("Не удалось загрузить data/site.json");
-  siteData = await response.json();
-  siteData.products = buildTestCatalog(siteData.products, siteData.nav);
+  const [siteRes, productsRes] = await Promise.all([
+    fetch("data/site.json"),
+    fetch("data/products.json"),
+  ]);
+  if (!siteRes.ok) throw new Error("Не удалось загрузить data/site.json");
+  if (!productsRes.ok) throw new Error("Не удалось загрузить data/products.json");
+  siteData = await siteRes.json();
+  siteData.products = await productsRes.json();
   productImage = siteData.productImage || "assets/logo-mark.png";
   productsById = new Map(siteData.products.map((product) => [product.id, product]));
-}
-
-function buildTestCatalog(products, sections) {
-  const variants = [
-    "Классический",
-    "Нежный",
-    "Яркий",
-    "Праздничный",
-    "Премиум",
-    "Мини",
-    "Большой",
-    "С декором",
-    "На заказ",
-    "Популярный",
-  ];
-
-  return sections.flatMap((section) => {
-    const source = products.filter((product) => product.section === section.id);
-    if (!source.length) return [];
-
-    return Array.from({ length: 10 }, (_, index) => {
-      const base = source[index % source.length];
-      if (index < source.length) return base;
-      const price = base.price + index * 50;
-      return {
-        ...base,
-        id: `${section.id}-test-${index + 1}`,
-        title: `${base.title} · ${variants[index]}`,
-        price,
-        priceLabel: `от ${formatRub(price)}`,
-        badge: index === 4 ? "Хит" : undefined,
-      };
-    });
-  });
 }
 
 function productImagePath(product) {

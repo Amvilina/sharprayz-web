@@ -1,4 +1,12 @@
+export function normalizeMediaPath(path) {
+  if (!path || typeof path !== "string") return path;
+  const trimmed = path.trim();
+  if (trimmed.startsWith("/")) return trimmed.slice(1);
+  return trimmed;
+}
+
 export function imageVariants(path) {
+  path = normalizeMediaPath(path);
   if (!path) return { webp: "", fallback: "" };
   if (/^https?:\/\//i.test(path)) return { webp: path, fallback: path };
   if (path.endsWith(".webp")) {
