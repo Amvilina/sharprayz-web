@@ -1,10 +1,10 @@
 [
   {
-    "title": "Тестовый товар",
-    "description": "Это крутой товар, очень очень здоровский он",
-    "price": 599,
-    "section": "К праздникам",
-    "image": "assets/products/logo-mark.png",
+    "title": "Скай",
+    "description": "-",
+    "price": 1000000,
+    "section": "Герои",
+    "image": "assets/products/IMG_8874.jpeg",
     "badge": "Хит"
   }
 ]
