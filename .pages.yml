@@ -70,6 +70,12 @@ content:
               - name: callbackHours
                 label: Заказ звонка
                 type: string
+              - name: vkUrl
+                label: "Ссылка ВКонтакте"
+                type: string
+              - name: instagramUrl
+                label: "Ссылка Instagram"
+                type: string
 
           - name: order
             label: Заказы на почту

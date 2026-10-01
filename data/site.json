@@ -9,7 +9,9 @@
     "mapZoom": 17,
     "hoursOrder": "9:00–22:00",
     "hoursDelivery": "круглосуточно",
-    "callbackHours": "9:00–20:00, МСК"
+    "callbackHours": "9:00–20:00, МСК",
+    "vkUrl": "https://vk.ru/sharprayz",
+    "instagramUrl": "https://www.instagram.com/sharprayz___/"
   },
   "order": {
     "notifyEmail": "sharprayz@mail.ru"

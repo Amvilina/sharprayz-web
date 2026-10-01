@@ -105,6 +105,21 @@
     color: var(--color-ink);
   }
 
+  .about-item__socials {
+    display: grid;
+    gap: 0.35rem;
+    margin-top: 0.15rem;
+  }
+
+  .about-item__socials[hidden] {
+    display: none;
+  }
+
+  .about-item__socials a {
+    display: block;
+    width: fit-content;
+  }
+
   .about-section__map-frame {
     min-height: 24rem;
     overflow: hidden;

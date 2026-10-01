@@ -297,6 +297,26 @@ function bindShopText() {
   document.querySelectorAll("[data-shop-address]").forEach((el) => {
     el.textContent = shop.address;
   });
+  document.querySelectorAll("[data-shop-vk]").forEach((el) => {
+    if (!(el instanceof HTMLAnchorElement)) return;
+    if (shop.vkUrl) {
+      el.href = shop.vkUrl;
+      el.hidden = false;
+    } else {
+      el.hidden = true;
+    }
+  });
+  document.querySelectorAll("[data-shop-instagram]").forEach((el) => {
+    if (!(el instanceof HTMLAnchorElement)) return;
+    if (shop.instagramUrl) {
+      el.href = shop.instagramUrl;
+      el.hidden = false;
+    } else {
+      el.hidden = true;
+    }
+  });
+  const socials = document.querySelector(".about-item__socials");
+  if (socials) socials.hidden = !shop.vkUrl && !shop.instagramUrl;
   const mapFrame = document.querySelector("[data-yandex-map]");
   if (mapFrame instanceof HTMLIFrameElement && shop.mapLat && shop.mapLon) {
     const params = new URLSearchParams({

@@ -33,6 +33,8 @@ export function bindSeo(siteData) {
     setMetaProperty("og:url", siteUrl + "/");
   }
 
+  const socialLinks = [shop.vkUrl, shop.instagramUrl].filter(Boolean);
+
   const ld = {
     "@context": "https://schema.org",
     "@type": "Store",
@@ -64,6 +66,7 @@ export function bindSeo(siteData) {
       },
     ],
     url: siteUrl || undefined,
+    sameAs: socialLinks.length ? socialLinks : undefined,
   };
 
   let script = document.getElementById("schema-org");
