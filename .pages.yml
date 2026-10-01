@@ -35,16 +35,41 @@ content:
             label: Контакты и адрес
             type: object
             fields:
-              - { name: phone, label: Телефон (как на сайте), type: string, required: true }
-              - { name: phoneTel, label: Телефон для ссылки tel:, type: string, required: true }
-              - { name: email, label: Email, type: string, required: true }
-              - { name: address, label: Адрес, type: text, required: true }
-              - { name: mapLat, label: Широта карты, type: number }
-              - { name: mapLon, label: Долгота карты, type: number }
-              - { name: mapZoom, label: Масштаб карты, type: number }
-              - { name: hoursOrder, label: Приём заказов, type: string }
-              - { name: hoursDelivery, label: Доставка, type: string }
-              - { name: callbackHours, label: Заказ звонка, type: string }
+              - name: phone
+                label: "Телефон (как на сайте)"
+                type: string
+                required: true
+              - name: phoneTel
+                label: "Телефон для ссылки tel"
+                type: string
+                required: true
+                description: "Только цифры и +, например +79691010199"
+              - name: email
+                label: Email
+                type: string
+                required: true
+              - name: address
+                label: Адрес
+                type: text
+                required: true
+              - name: mapLat
+                label: Широта карты
+                type: number
+              - name: mapLon
+                label: Долгота карты
+                type: number
+              - name: mapZoom
+                label: Масштаб карты
+                type: number
+              - name: hoursOrder
+                label: Приём заказов
+                type: string
+              - name: hoursDelivery
+                label: Доставка
+                type: string
+              - name: callbackHours
+                label: Заказ звонка
+                type: string
 
           - name: order
             label: Заказы на почту
@@ -54,7 +79,7 @@ content:
                 label: Email для FormSubmit
                 type: string
                 required: true
-                description: Сюда приходят заявки с сайта (formsubmit.co). После первой заявки подтвердите письмо «Activate».
+                description: "Сюда приходят заявки с сайта (formsubmit.co). После первой заявки подтвердите письмо Activate."
 
           - name: productImage
             label: Картинка по умолчанию для товаров
@@ -75,12 +100,20 @@ content:
             type: object
             fields:
               - name: siteUrl
-                label: Адрес сайта (без слэша в конце)
+                label: "Адрес сайта (без слэша в конце)"
                 type: string
                 description: "Например https://sharprayz.ru — для canonical и Open Graph."
-              - { name: title, label: Заголовок (title), type: string, required: true }
-              - { name: description, label: Описание, type: text, required: true }
-              - { name: keywords, label: Ключевые слова, type: text }
+              - name: title
+                label: "Заголовок (title)"
+                type: string
+                required: true
+              - name: description
+                label: Описание
+                type: text
+                required: true
+              - name: keywords
+                label: Ключевые слова
+                type: text
               - name: ogImage
                 label: Картинка для соцсетей
                 type: image
@@ -89,15 +122,22 @@ content:
                   path: assets
 
           - name: hero
-            label: Блок «герой» на главной
+            label: "Блок герой на главной"
             type: object
             fields:
-              - { name: badge, label: Бейдж, type: string }
-              - { name: title, label: Заголовок, type: string, required: true }
-              - { name: lead, label: Подзаголовок, type: text }
+              - name: badge
+                label: Бейдж
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+                required: true
+              - name: lead
+                label: Подзаголовок
+                type: text
 
           - name: nav
-            label: Разделы каталога (вкладки)
+            label: "Разделы каталога (вкладки)"
             type: object
             list:
               collapsible:
@@ -105,13 +145,16 @@ content:
                 summary: "{label}"
             fields:
               - name: id
-                label: ID (латиница, без пробелов)
+                label: "ID (латиница, без пробелов)"
                 type: string
                 required: true
-                description: Должен совпадать с полем «Раздел» у товаров (например svechi).
-              - { name: label, label: Название вкладки, type: string, required: true }
+                description: "Должен совпадать с полем Раздел у товаров (например svechi)."
+              - name: label
+                label: Название вкладки
+                type: string
+                required: true
               - name: links
-                label: Подпункты (необязательно)
+                label: "Подпункты (необязательно)"
                 type: string
                 list: true
 
@@ -123,9 +166,17 @@ content:
                 collapsed: true
                 summary: "{label}"
             fields:
-              - { name: id, label: ID, type: string, required: true }
-              - { name: label, label: Название, type: string, required: true }
-              - { name: description, label: Описание, type: text }
+              - name: id
+                label: ID
+                type: string
+                required: true
+              - name: label
+                label: Название
+                type: string
+                required: true
+              - name: description
+                label: Описание
+                type: text
 
       - name: products
         label: Каталог товаров
@@ -143,33 +194,54 @@ content:
             label: ID товара
             type: string
             required: true
-            description: Уникальный, латиница (например svechi-3).
-          - { name: title, label: Название, type: string, required: true }
-          - { name: description, label: Описание, type: text, required: true }
-          - { name: price, label: Цена (число), type: number, required: true }
+            description: "Уникальный, латиница (например svechi-3)."
+          - name: title
+            label: Название
+            type: string
+            required: true
+          - name: description
+            label: Описание
+            type: text
+            required: true
+          - name: price
+            label: "Цена (число)"
+            type: number
+            required: true
           - name: priceLabel
             label: Цена на карточке
             type: string
             required: true
-            description: "Как видит покупатель, например «от 290 ₽»."
+            description: "Как видит покупатель, например от 290 ₽."
           - name: section
             label: Раздел каталога
             type: select
             required: true
             options:
               values:
-                - { name: svechi, label: Свечки }
-                - { name: posuda, label: Одноразовая посуда }
-                - { name: upakovka, label: Упаковка }
-                - { name: suveniry, label: Подарочные сувениры }
-                - { name: maski, label: Карнавальные маски }
-                - { name: korony, label: Короны и палочки }
-                - { name: roost, label: Ростовые фигуры }
-                - { name: edible, label: Съедобные букеты }
-                - { name: fonari, label: Воздушные фонари }
-                - { name: photozone, label: Фотозона }
-                - { name: arki, label: Арки }
-                - { name: nad-pisi, label: Надписи для шаров }
+                - name: svechi
+                  label: Свечки
+                - name: posuda
+                  label: Одноразовая посуда
+                - name: upakovka
+                  label: Упаковка
+                - name: suveniry
+                  label: Подарочные сувениры
+                - name: maski
+                  label: Карнавальные маски
+                - name: korony
+                  label: Короны и палочки
+                - name: roost
+                  label: Ростовые фигуры
+                - name: edible
+                  label: Съедобные букеты
+                - name: fonari
+                  label: Воздушные фонари
+                - name: photozone
+                  label: Фотозона
+                - name: arki
+                  label: Арки
+                - name: nad-pisi
+                  label: Надписи для шаров
           - name: image
             label: Фото товара
             type: image
@@ -183,5 +255,7 @@ content:
             options:
               placeholder: Без бейджа
               values:
-                - { name: Хит, label: Хит }
-                - { name: Новинка, label: Новинка }
+                - name: "Хит"
+                  label: Хит
+                - name: "Новинка"
+                  label: Новинка
