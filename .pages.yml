@@ -136,8 +136,13 @@ content:
                 label: Подзаголовок
                 type: text
 
+          - name: navMoreLabel
+            label: "Кнопка «ещё» в меню"
+            type: string
+            description: "Обычно Подробнее — открывает все разделы сразу."
+
           - name: nav
-            label: "Разделы каталога (вкладки)"
+            label: "Разделы в шапке сайта"
             type: object
             list:
               collapsible:
@@ -148,7 +153,7 @@ content:
                 label: "ID (латиница, без пробелов)"
                 type: string
                 required: true
-                description: "Должен совпадать с полем Раздел у товаров (например svechi)."
+                description: "Тот же ID укажите у товаров в поле section (например latex)."
               - name: label
                 label: Название вкладки
                 type: string
@@ -213,35 +218,10 @@ content:
             required: true
             description: "Как видит покупатель, например от 290 ₽."
           - name: section
-            label: Раздел каталога
-            type: select
+            label: ID раздела
+            type: string
             required: true
-            options:
-              values:
-                - name: svechi
-                  label: Свечки
-                - name: posuda
-                  label: Одноразовая посуда
-                - name: upakovka
-                  label: Упаковка
-                - name: suveniry
-                  label: Подарочные сувениры
-                - name: maski
-                  label: Карнавальные маски
-                - name: korony
-                  label: Короны и палочки
-                - name: roost
-                  label: Ростовые фигуры
-                - name: edible
-                  label: Съедобные букеты
-                - name: fonari
-                  label: Воздушные фонари
-                - name: photozone
-                  label: Фотозона
-                - name: arki
-                  label: Арки
-                - name: nad-pisi
-                  label: Надписи для шаров
+            description: "Как поле ID у раздела в настройках (latex, svechi, …)."
           - name: image
             label: Фото товара
             type: image

@@ -55,6 +55,8 @@
           <span data-shop-hours>заказы 9:00–22:00 · доставка 24/7</span>
         </div>
 
+        <nav class="site-nav" id="site-nav" aria-label="Каталог"></nav>
+
         <div class="header-actions">
           <a class="header-phone-mobile" href="tel:+79691010199" data-shop-phone>+7 (969) 101-01-99</a>
           <button class="cart-trigger" type="button" data-cart-open aria-label="Корзина">
@@ -66,9 +68,6 @@
             <span class="cart-trigger__badge" id="cart-badge" data-count="0">0</span>
           </button>
         </div>
-      </div>
-      <div class="catalog-tabs-bar">
-        <div class="container catalog-tabs" id="catalog-tabs" role="tablist" aria-label="Разделы каталога"></div>
       </div>
     </header>
 
@@ -184,11 +183,7 @@
             <p class="hero__badge" data-hero-badge>Балашиха · доставка 24/7</p>
             <h1 class="hero__title" id="hero-title" data-hero-title>Шары для вашего праздника</h1>
             <p class="hero__lead" data-hero-lead></p>
-            <div class="hero__chips">
-              <a href="#cat-svechi">Свечки</a>
-              <a href="#cat-roost">Ростовые фигуры</a>
-              <a href="#cat-photozone">Фотозона</a>
-            </div>
+            <div class="hero__chips" id="hero-chips"></div>
             <a class="btn btn--brand" href="#catalog">Смотреть каталог</a>
           </div>
           <div class="hero__visual">
@@ -270,7 +265,7 @@
                 </div>
               </article>
 
-              <article class="about-item">
+              <article class="about-item" id="delivery">
                 <span class="about-item__icon" aria-hidden="true">
                   <svg viewBox="0 0 24 24"><path d="M3 6h11v10H3V6Zm11 4h4l3 3v3h-7v-6Z"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
                 </span>
@@ -300,7 +295,7 @@
         <p class="site-footer__brand">ШАР<em>ПРАЙЗ</em></p>
         <p class="site-footer__copy">© ШАРПРАЙЗ · Балашиха · шары с гелием</p>
         <nav class="site-footer__nav" aria-label="Подвал">
-          <a href="#cat-all">Весь каталог</a>
+          <a href="#cat-all">Подробнее</a>
           <a href="#contacts">О нас</a>
           <a href="tel:+79691010199">Позвонить</a>
         </nav>

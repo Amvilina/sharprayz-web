@@ -130,17 +130,32 @@ function updateSectionGrid(sectionId) {
   syncProductCards();
 }
 
-function renderCatalogTabs() {
-  const headerTabs = document.getElementById("catalog-tabs");
-  if (!headerTabs) return;
-  headerTabs.innerHTML =
-    `<button type="button" class="catalog-tab" role="tab" data-section-tab="${CATALOG_ALL}" aria-selected="false">Весь каталог</button>` +
-    siteData.nav
-      .map(
-        (section) =>
-          `<button type="button" class="catalog-tab" role="tab" data-section-tab="${section.id}" aria-selected="false">${section.label}</button>`
-      )
-      .join("");
+function renderSiteNav() {
+  const navHost = document.getElementById("site-nav");
+  if (!navHost) return;
+  const moreLabel = siteData.navMoreLabel || "Подробнее";
+  const catalogLinks = siteData.nav
+    .map(
+      (section) =>
+        `<a class="site-nav__link" role="tab" href="#cat-${section.id}" data-section-tab="${section.id}" aria-selected="false">${section.label}</a>`
+    )
+    .join("");
+  navHost.innerHTML = `
+    <div class="site-nav__list" role="tablist" aria-label="Разделы каталога">
+      ${catalogLinks}
+      <a class="site-nav__link site-nav__link--more" role="tab" href="#cat-${CATALOG_ALL}" data-section-tab="${CATALOG_ALL}" aria-selected="false">${moreLabel}</a>
+      <a class="site-nav__link site-nav__link--page" href="#delivery">Доставка</a>
+      <a class="site-nav__link site-nav__link--page" href="#contacts">Контакты</a>
+    </div>`;
+}
+
+function renderHeroChips() {
+  const host = document.getElementById("hero-chips");
+  if (!host || !siteData?.nav?.length) return;
+  host.innerHTML = siteData.nav
+    .slice(0, 3)
+    .map((section) => `<a href="#cat-${section.id}">${section.label}</a>`)
+    .join("");
 }
 
 function renderCatalogStage() {
@@ -172,23 +187,22 @@ function renderCatalogStage() {
     })
     .join("");
 
+  const moreTitle = siteData.navMoreLabel || "Подробнее";
   const allPanel = `
     <div class="catalog-panel" id="cat-${CATALOG_ALL}" role="tabpanel" data-section-panel="${CATALOG_ALL}" hidden>
-      <h2 class="catalog-panel__title">Весь каталог</h2>
-      <p class="catalog-panel__lead">Всё для праздника, оформления и подарков.</p>
+      <h2 class="catalog-panel__title">${moreTitle}</h2>
+      <p class="catalog-panel__lead">Все разделы каталога на одной странице.</p>
       <div class="catalog-all">
         ${siteData.nav
-          .map((section) => {
-            const products = productsForSectionRaw(section.id);
-            if (!products.length) return "";
-            return `
+          .map(
+            (section) => `
           <section class="catalog-group" id="cat-group-${section.id}" aria-labelledby="cat-group-title-${section.id}">
             <h3 class="catalog-group__title" id="cat-group-title-${section.id}">
-              <button type="button" class="catalog-group__jump" data-section-tab="${section.id}">${section.label}</button>
+              <a class="catalog-group__jump" href="#cat-${section.id}" data-section-tab="${section.id}">${section.label}</a>
             </h3>
-            ${productsGridHtml(products)}
-          </section>`;
-          })
+            ${productsGridHtml(productsForSectionRaw(section.id))}
+          </section>`
+          )
           .join("")}
       </div>
     </div>`;
@@ -205,7 +219,9 @@ function setActiveSection(sectionId, scrollToCatalog = false) {
   activeSectionId = sectionId;
 
   document.querySelectorAll("[data-section-tab]").forEach((tab) => {
-    tab.setAttribute("aria-selected", tab.dataset.sectionTab === sectionId ? "true" : "false");
+    const on = tab.dataset.sectionTab === sectionId;
+    tab.setAttribute("aria-selected", on ? "true" : "false");
+    tab.classList.toggle("is-active", on);
   });
 
   document.querySelectorAll("[data-section-panel]").forEach((panel) => {
@@ -535,7 +551,8 @@ async function init() {
     await loadSite();
     bindShopText();
     bindSeo(siteData);
-    renderCatalogTabs();
+    renderSiteNav();
+    renderHeroChips();
     renderCatalogStage();
     renderPaymentChoices();
     bindSectionSwitching();
@@ -545,7 +562,7 @@ async function init() {
     bindCallbackForm();
     bindAllPhoneInputs();
     bindDialogScrollLock(cartDialog);
-    setActiveSection(parseHashSection() || CATALOG_ALL, false);
+    setActiveSection(parseHashSection() || siteData.nav[0]?.id || CATALOG_ALL, false);
     renderCart();
   } catch (error) {
     console.error(error);
