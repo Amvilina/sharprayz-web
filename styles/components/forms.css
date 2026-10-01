@@ -33,6 +33,12 @@
     background: var(--color-surface);
   }
 
+  .input--textarea {
+    min-height: 5.5rem;
+    resize: vertical;
+    line-height: 1.45;
+  }
+
   .input:user-invalid {
     border-color: oklch(0.55 0.2 25);
     box-shadow: 0 0 0 2px color-mix(in oklch, oklch(0.55 0.2 25) 25%, transparent);

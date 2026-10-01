@@ -7,6 +7,7 @@ export function buildOrderMessage(form, productsById, formatRub, getCartTotal) {
   const address = String(data.get("address") || "").trim();
   const date = String(data.get("date") || "").trim();
   const time = String(data.get("time") || "").trim();
+  const comment = String(data.get("comment") || "").trim();
   const payInput = form.querySelector('input[name="pay"]:checked');
   const payLabel = payInput?.closest(".choice")?.querySelector(".choice__title")?.textContent?.trim() || "—";
 
@@ -26,6 +27,9 @@ export function buildOrderMessage(form, productsById, formatRub, getCartTotal) {
   lines.push(`Адрес: ${address || "—"}`);
   lines.push(`Доставка: ${date} ${time}`);
   lines.push(`Оплата: ${payLabel}`);
+  if (comment) {
+    lines.push(`Комментарий: ${comment}`);
+  }
   lines.push("");
   lines.push("Состав заказа:");
   lines.push(...(items.length ? items : ["—"]));
@@ -40,6 +44,7 @@ export function buildOrderMessage(form, productsById, formatRub, getCartTotal) {
     date,
     time,
     payLabel,
+    comment,
     message: lines.join("\n"),
   };
 }
@@ -65,6 +70,7 @@ export async function sendOrderViaFormSubmit(notifyEmail, payload) {
       delivery_date: payload.date,
       delivery_time: payload.time,
       payment: payload.payLabel,
+      comment: payload.comment || "—",
       message: payload.message,
     }),
   });
