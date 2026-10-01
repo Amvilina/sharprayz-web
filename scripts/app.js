@@ -24,8 +24,7 @@ const checkoutForm = document.getElementById("checkout-form");
 
 let siteData = null;
 let productsById = new Map();
-const CATALOG_ALL = "all";
-let activeSectionId = CATALOG_ALL;
+let activeSectionId = "";
 let productImage = "assets/logo-mark.png";
 let openProductId = null;
 const activeTagBySection = {};
@@ -37,15 +36,65 @@ function showDialog(dialog) {
   window.scrollTo(0, scrollY);
 }
 
+function slugifySectionLabel(label) {
+  return String(label || "")
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9\u0400-\u04ff-]/gi, "")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function prepareNavSections(sections) {
+  const used = new Set();
+  return (sections || []).map((section, index) => {
+    const label = String(section.label || "").trim();
+    let id = String(section.id || "").trim();
+    if (!id) id = slugifySectionLabel(label);
+    if (!id) id = `section-${index + 1}`;
+    let unique = id;
+    let n = 2;
+    while (used.has(unique)) {
+      unique = `${id}-${n++}`;
+    }
+    used.add(unique);
+    return {
+      ...section,
+      label,
+      id: unique,
+      links: Array.isArray(section.links) ? section.links : [],
+    };
+  });
+}
+
+function sectionLabelById(sectionId) {
+  return siteData.nav.find((section) => section.id === sectionId)?.label;
+}
+
+function productBelongsToSection(product, sectionId) {
+  const label = sectionLabelById(sectionId);
+  const value = product?.section;
+  return value === sectionId || (label && value === label);
+}
+
 async function loadSite() {
-  const [siteRes, productsRes] = await Promise.all([
+  const [siteRes, sectionsRes, productsRes] = await Promise.all([
     fetch("data/site.json"),
+    fetch("data/sections.json"),
     fetch("data/products.json"),
   ]);
   if (!siteRes.ok) throw new Error("Не удалось загрузить data/site.json");
+  if (!sectionsRes.ok) throw new Error("Не удалось загрузить data/sections.json");
   if (!productsRes.ok) throw new Error("Не удалось загрузить data/products.json");
   siteData = await siteRes.json();
-  siteData.products = await productsRes.json();
+  siteData.nav = prepareNavSections(await sectionsRes.json());
+  siteData.products = (await productsRes.json()).map((product, index) => {
+    const title = String(product.title || "").trim();
+    let id = String(product.id || "").trim();
+    if (!id) id = slugifySectionLabel(title) || `item-${index + 1}`;
+    return { ...product, id, title };
+  });
   productImage = siteData.productImage || "assets/logo-mark.png";
   productsById = new Map(siteData.products.map((product) => [product.id, product]));
 }
@@ -106,7 +155,7 @@ function productsGridHtml(products) {
 }
 
 function productsForSectionRaw(sectionId) {
-  return siteData.products.filter((product) => product.section === sectionId);
+  return siteData.products.filter((product) => productBelongsToSection(product, sectionId));
 }
 
 function productsForSection(sectionId) {
@@ -130,23 +179,15 @@ function updateSectionGrid(sectionId) {
   syncProductCards();
 }
 
-function renderSiteNav() {
-  const navHost = document.getElementById("site-nav");
-  if (!navHost) return;
-  const moreLabel = siteData.navMoreLabel || "Подробнее";
-  const catalogLinks = siteData.nav
+function renderCatalogTabs() {
+  const headerTabs = document.getElementById("catalog-tabs");
+  if (!headerTabs) return;
+  headerTabs.innerHTML = siteData.nav
     .map(
       (section) =>
-        `<a class="site-nav__link" role="tab" href="#cat-${section.id}" data-section-tab="${section.id}" aria-selected="false">${section.label}</a>`
+        `<button type="button" class="catalog-tab" role="tab" data-section-tab="${section.id}" aria-selected="false">${section.label}</button>`
     )
     .join("");
-  navHost.innerHTML = `
-    <div class="site-nav__list" role="tablist" aria-label="Разделы каталога">
-      ${catalogLinks}
-      <a class="site-nav__link site-nav__link--more" role="tab" href="#cat-${CATALOG_ALL}" data-section-tab="${CATALOG_ALL}" aria-selected="false">${moreLabel}</a>
-      <a class="site-nav__link site-nav__link--page" href="#delivery">Доставка</a>
-      <a class="site-nav__link site-nav__link--page" href="#contacts">Контакты</a>
-    </div>`;
 }
 
 function renderHeroChips() {
@@ -187,31 +228,11 @@ function renderCatalogStage() {
     })
     .join("");
 
-  const moreTitle = siteData.navMoreLabel || "Подробнее";
-  const allPanel = `
-    <div class="catalog-panel" id="cat-${CATALOG_ALL}" role="tabpanel" data-section-panel="${CATALOG_ALL}" hidden>
-      <h2 class="catalog-panel__title">${moreTitle}</h2>
-      <p class="catalog-panel__lead">Все разделы каталога на одной странице.</p>
-      <div class="catalog-all">
-        ${siteData.nav
-          .map(
-            (section) => `
-          <section class="catalog-group" id="cat-group-${section.id}" aria-labelledby="cat-group-title-${section.id}">
-            <h3 class="catalog-group__title" id="cat-group-title-${section.id}">
-              <a class="catalog-group__jump" href="#cat-${section.id}" data-section-tab="${section.id}">${section.label}</a>
-            </h3>
-            ${productsGridHtml(productsForSectionRaw(section.id))}
-          </section>`
-          )
-          .join("")}
-      </div>
-    </div>`;
-
-  stage.innerHTML = allPanel + sectionPanels;
+  stage.innerHTML = sectionPanels;
 }
 
 function isCatalogSection(sectionId) {
-  return sectionId === CATALOG_ALL || siteData.nav.some((section) => section.id === sectionId);
+  return siteData.nav.some((section) => section.id === sectionId);
 }
 
 function setActiveSection(sectionId, scrollToCatalog = false) {
@@ -221,7 +242,6 @@ function setActiveSection(sectionId, scrollToCatalog = false) {
   document.querySelectorAll("[data-section-tab]").forEach((tab) => {
     const on = tab.dataset.sectionTab === sectionId;
     tab.setAttribute("aria-selected", on ? "true" : "false");
-    tab.classList.toggle("is-active", on);
   });
 
   document.querySelectorAll("[data-section-panel]").forEach((panel) => {
@@ -242,7 +262,7 @@ function setActiveSection(sectionId, scrollToCatalog = false) {
 
 function parseHashSection() {
   const hash = location.hash.replace("#cat-", "");
-  if (hash === CATALOG_ALL) return CATALOG_ALL;
+  if (hash === "all") return "other";
   if (hash && siteData?.nav.some((section) => section.id === hash)) return hash;
   return activeSectionId;
 }
@@ -551,7 +571,7 @@ async function init() {
     await loadSite();
     bindShopText();
     bindSeo(siteData);
-    renderSiteNav();
+    renderCatalogTabs();
     renderHeroChips();
     renderCatalogStage();
     renderPaymentChoices();
@@ -562,7 +582,7 @@ async function init() {
     bindCallbackForm();
     bindAllPhoneInputs();
     bindDialogScrollLock(cartDialog);
-    setActiveSection(parseHashSection() || siteData.nav[0]?.id || CATALOG_ALL, false);
+    setActiveSection(parseHashSection() || siteData.nav[0]?.id, false);
     renderCart();
   } catch (error) {
     console.error(error);

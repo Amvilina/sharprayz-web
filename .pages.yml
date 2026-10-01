@@ -136,33 +136,6 @@ content:
                 label: Подзаголовок
                 type: text
 
-          - name: navMoreLabel
-            label: "Кнопка «ещё» в меню"
-            type: string
-            description: "Обычно Подробнее — открывает все разделы сразу."
-
-          - name: nav
-            label: "Разделы в шапке сайта"
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-                summary: "{label}"
-            fields:
-              - name: id
-                label: "ID (латиница, без пробелов)"
-                type: string
-                required: true
-                description: "Тот же ID укажите у товаров в поле section (например latex)."
-              - name: label
-                label: Название вкладки
-                type: string
-                required: true
-              - name: links
-                label: "Подпункты (необязательно)"
-                type: string
-                list: true
-
           - name: paymentMethods
             label: Способы оплаты
             type: object
@@ -183,6 +156,30 @@ content:
                 label: Описание
                 type: text
 
+      - name: sections
+        label: Разделы каталога
+        type: file
+        path: data/sections.json
+        format: json
+        list: true
+        view:
+          primary: label
+          sort: label
+          order: asc
+        fields:
+          - name: label
+            label: Название раздела
+            type: string
+            required: true
+          - name: links
+            label: "Подкатегории (необязательно)"
+            type: string
+            list: true
+          - name: id
+            label: Служебное
+            type: string
+            hidden: true
+
       - name: products
         label: Каталог товаров
         type: file
@@ -196,10 +193,9 @@ content:
           order: asc
         fields:
           - name: id
-            label: ID товара
+            label: Код товара
             type: string
-            required: true
-            description: "Уникальный, латиница (например svechi-3)."
+            hidden: true
           - name: title
             label: Название
             type: string
@@ -218,10 +214,25 @@ content:
             required: true
             description: "Как видит покупатель, например от 290 ₽."
           - name: section
-            label: ID раздела
-            type: string
+            label: Раздел
+            type: select
             required: true
-            description: "Как поле ID у раздела в настройках (latex, svechi, …)."
+            options:
+              placeholder: Выберите раздел
+              values:
+              # SECTION_SELECT_VALUES_START
+                - "Латексные"
+                - "Фольгированные"
+                - "Для кого"
+                - "События"
+                - "Герои"
+                - "К праздникам"
+                - "Фигуры из шаров"
+                - "Фонтан, связки"
+                - "Свечки"
+                - "Фотозоны, арки"
+                - "Другое"
+              # SECTION_SELECT_VALUES_END
           - name: image
             label: Фото товара
             type: image

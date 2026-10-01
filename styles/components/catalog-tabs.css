@@ -1,4 +1,38 @@
 @layer components {
+  .catalog-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    overflow: visible;
+  }
+
+  .catalog-tab {
+    padding: 0.55em 0.85em;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    line-height: 1.2;
+  }
+
+  .catalog-tab:hover {
+    color: var(--color-ink);
+    border-color: var(--color-sky);
+  }
+
+  .catalog-tab[aria-selected="true"] {
+    color: #fff;
+    background: var(--color-brand-strong);
+    border-color: var(--color-brand-strong);
+  }
+
   #catalog {
     scroll-margin-top: var(--header-offset);
   }

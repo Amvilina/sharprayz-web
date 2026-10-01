@@ -28,19 +28,6 @@
     "title": "Шары для вашего праздника",
     "lead": "Шары с гелием, оформление, сувениры и всё для праздника под ключ. Принимаем заказы с 9:00 до 22:00."
   },
-  "navMoreLabel": "Подробнее",
-  "nav": [
-    { "id": "latex", "label": "Латексные", "links": [] },
-    { "id": "foil", "label": "Фольгированные", "links": [] },
-    { "id": "forwho", "label": "Для кого", "links": [] },
-    { "id": "events", "label": "События", "links": [] },
-    { "id": "heroes", "label": "Герои", "links": [] },
-    { "id": "holidays", "label": "К праздникам", "links": [] },
-    { "id": "figures", "label": "Фигуры из шаров", "links": [] },
-    { "id": "fountain", "label": "Фонтан, связки", "links": [] },
-    { "id": "svechi", "label": "Свечки", "links": [] },
-    { "id": "photozones", "label": "Фотозоны, арки", "links": [] }
-  ],
   "paymentMethods": [
     {
       "id": "cash",
