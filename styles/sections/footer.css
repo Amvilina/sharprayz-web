@@ -1,0 +1,97 @@
+@layer components {
+  .site-footer {
+    margin-top: 0;
+    padding-block: var(--space-6);
+    background: linear-gradient(165deg, var(--color-sky-deep), oklch(0.32 0.095 280));
+    color: oklch(0.98 0.01 280);
+  }
+
+  .site-footer .container {
+    width: var(--container);
+    margin-inline: auto;
+  }
+
+  .site-footer__inner {
+    display: grid;
+    gap: var(--space-5);
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-6);
+      text-align: left;
+    }
+  }
+
+  .site-footer__brand {
+    margin: 0;
+    font-size: var(--step-2);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__brand {
+      justify-self: start;
+    }
+  }
+
+  .site-footer__brand em {
+    font-style: normal;
+    color: var(--color-brand);
+  }
+
+  .site-footer__copy {
+    margin: 0;
+    font-size: var(--step--1);
+    line-height: 1.45;
+    opacity: 0.92;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__copy {
+      justify-self: center;
+      text-align: center;
+    }
+  }
+
+  .site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__nav {
+      justify-self: end;
+      justify-content: flex-end;
+    }
+  }
+
+  .site-footer__nav a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45em 0.9em;
+    font-size: var(--step--1);
+    font-weight: 700;
+    color: oklch(0.98 0.01 280) !important;
+    text-decoration: none !important;
+    background: oklch(1 0 0 / 0.1);
+    border: 1px solid oklch(1 0 0 / 0.18);
+    border-radius: 999px;
+    transition:
+      background var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .site-footer__nav a:hover {
+    background: oklch(1 0 0 / 0.16);
+    border-color: var(--color-brand);
+    color: #fff !important;
+  }
+}

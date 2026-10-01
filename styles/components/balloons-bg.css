@@ -1,0 +1,47 @@
+@layer components {
+  .page-balloons {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .page-balloons__orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(3.5rem);
+    opacity: 0.22;
+  }
+
+  .page-balloons__orb--1 {
+    width: 18rem;
+    height: 18rem;
+    left: -4rem;
+    top: 8%;
+    background: var(--color-blush);
+  }
+
+  .page-balloons__orb--2 {
+    width: 22rem;
+    height: 22rem;
+    right: -6rem;
+    top: 20%;
+    background: var(--color-sky);
+  }
+
+  .page-balloons__orb--3 {
+    width: 16rem;
+    height: 16rem;
+    left: 35%;
+    bottom: -5rem;
+    background: var(--color-brand);
+    opacity: 0.16;
+  }
+
+  body > main,
+  body > footer {
+    position: relative;
+    z-index: 1;
+  }
+}

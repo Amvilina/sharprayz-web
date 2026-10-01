@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# После публикации укажите полный URL sitemap (см. data/site.json → seo.siteUrl)
+# Sitemap: https://ваш-домен.ru/sitemap.xml

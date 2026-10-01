@@ -1,0 +1,22 @@
+@layer reset, tokens, base, layout, components, utilities, motion;
+
+@import url("./reset.css") layer(reset);
+@import url("./tokens.css") layer(tokens);
+@import url("./base.css") layer(base);
+@import url("./layout.css") layer(layout);
+@import url("./components/button.css") layer(components);
+@import url("./components/dialog.css") layer(components);
+@import url("./components/balloons-bg.css") layer(components);
+@import url("./components/forms.css") layer(components);
+@import url("./components/cart.css") layer(components);
+@import url("./components/catalog-tabs.css") layer(components);
+@import url("./components/product-modal.css") layer(components);
+@import url("./components/nav.css") layer(components);
+@import url("./components/product.css") layer(components);
+@import url("./sections/hero.css") layer(components);
+@import url("./sections/categories.css") layer(components);
+@import url("./sections/delivery.css") layer(components);
+@import url("./sections/about.css") layer(components);
+@import url("./sections/footer.css") layer(components);
+@import url("./sections/contact.css") layer(components);
+@import url("./motion.css") layer(motion);

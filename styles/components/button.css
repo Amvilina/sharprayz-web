@@ -1,0 +1,81 @@
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8em 1.35em;
+    font-size: var(--step--1);
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    border-radius: var(--radius-m);
+    cursor: pointer;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      background var(--duration-fast) var(--ease-out),
+      filter var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+
+  .btn:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+
+  .btn:disabled {
+    color: oklch(0.53 0.02 280);
+    background: oklch(0.88 0.015 280);
+    box-shadow: none;
+    cursor: not-allowed;
+    filter: none;
+  }
+
+  .btn--brand {
+    background: linear-gradient(135deg, var(--color-brand), var(--color-brand-strong));
+    color: #fff;
+    box-shadow: 0 0.35rem 1rem oklch(0.55 0.14 155 / 0.35);
+  }
+
+  .btn--brand:hover {
+    color: #fff;
+    filter: brightness(1.05);
+  }
+
+  .btn--brand:disabled {
+    color: oklch(0.53 0.02 280);
+    background: oklch(0.88 0.015 280);
+    box-shadow: none;
+    filter: none;
+  }
+
+  .btn--ghost {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn--ghost:hover {
+    border-color: var(--color-sky);
+    color: var(--color-sky-deep);
+  }
+
+  .btn--full {
+    width: 100%;
+  }
+
+  .btn--add {
+    border-radius: 999px;
+    padding: 0.65em 1.45em;
+    background: oklch(0.58 0.17 20);
+    color: #fff;
+    box-shadow: 0 0.35rem 1rem oklch(0.5 0.14 20 / 0.28);
+  }
+
+  .btn--add:hover {
+    color: #fff;
+    filter: brightness(1.06);
+  }
+}

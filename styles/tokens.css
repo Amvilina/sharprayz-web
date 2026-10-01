@@ -1,0 +1,52 @@
+@layer tokens {
+  :root {
+    --color-bg: oklch(0.985 0.012 280);
+    --color-bg-soft: oklch(0.96 0.025 250);
+    --color-surface: oklch(1 0 0);
+    --color-ink: oklch(0.25 0.04 280);
+    --color-muted: oklch(0.45 0.03 280);
+    --color-brand: oklch(0.72 0.19 155);
+    --color-brand-strong: oklch(0.58 0.17 155);
+    --color-sky: oklch(0.78 0.12 240);
+    --color-sky-deep: oklch(0.52 0.14 250);
+    --color-blush: oklch(0.78 0.12 350);
+    --color-peach: oklch(0.82 0.1 55);
+    --color-lilac: oklch(0.78 0.08 300);
+    --color-border: oklch(0.88 0.02 280);
+
+    --font-display: "Manrope", sans-serif;
+    --font-body: "Manrope", sans-serif;
+
+    --step--1: 0.9375rem;
+    --step-0: 1.125rem;
+    --step-1: 1.3125rem;
+    --step-2: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+    --step-3: clamp(2rem, 1.6rem + 1.4vw, 3rem);
+    --step-4: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2.25rem;
+    --space-7: 3rem;
+
+    --radius-s: 0.5rem;
+    --radius-m: 0.875rem;
+    --radius-l: 1.25rem;
+    --radius-xl: 1.75rem;
+
+    --shadow-soft: 0 0.5rem 2rem oklch(0.45 0.08 280 / 0.1);
+    --shadow-card: 0 0.25rem 1rem oklch(0.35 0.06 280 / 0.08);
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --duration-fast: 160ms;
+
+    --z-nav: 50;
+    --z-dropdown: 60;
+
+    --container: min(100% - 1.5rem, 76rem);
+    --header-offset: 8.5rem;
+  }
+}
