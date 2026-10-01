@@ -12,10 +12,15 @@ export function imageVariants(path) {
   if (path.endsWith(".webp")) {
     return { webp: path, fallback: path.replace(/\.webp$/i, ".png") };
   }
-  return {
-    webp: path.replace(/\.(png|jpe?g)$/i, ".webp"),
-    fallback: path,
-  };
+  if (/\.(png|jpe?g)$/i.test(path)) {
+    const webp = path.replace(/\.(png|jpe?g)$/i, ".webp");
+    const productUpload = /\/products\//.test(path) || path.startsWith("assets/products/");
+    if (productUpload) {
+      return { webp: "", fallback: path };
+    }
+    return { webp, fallback: path };
+  }
+  return { webp: "", fallback: path };
 }
 
 function escAttr(value) {
