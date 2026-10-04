@@ -49,6 +49,44 @@ export function buildOrderMessage(form, productsById, formatRub, getCartTotal) {
   };
 }
 
+export function buildCallbackPayload(phone) {
+  const phoneTrim = String(phone || "").trim();
+  const phoneTel = phoneRuToTel(phoneTrim);
+  const submittedAt = new Date().toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
+  const message = ["Заявка на обратный звонок — сайт ШАРПРАЙЗ", "", `Телефон: ${phoneTrim}`, `Время заявки: ${submittedAt}`].join(
+    "\n"
+  );
+  return { phone: phoneTrim, phoneTel, message, submittedAt };
+}
+
+/** @param {string} notifyEmail @param {{ phone: string, phoneTel: string, message: string, submittedAt: string }} payload */
+export async function sendCallbackViaFormSubmit(notifyEmail, payload) {
+  const email = notifyEmail.trim().toLowerCase();
+  if (!email.includes("@")) throw new Error("Некорректный email для заявок");
+
+  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      _subject: "Заказ звонка — ШАРПРАЙЗ",
+      _template: "table",
+      _captcha: "false",
+      phone: payload.phoneTel || payload.phone,
+      submitted_at: payload.submittedAt,
+      message: payload.message,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error(result.message || "Не удалось отправить заявку");
+  }
+  return result;
+}
+
 /** @param {string} notifyEmail */
 export async function sendOrderViaFormSubmit(notifyEmail, payload) {
   const email = notifyEmail.trim().toLowerCase();

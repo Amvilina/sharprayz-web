@@ -9,7 +9,12 @@ import {
   getLineQty,
   removeFromCart,
 } from "./cart.js";
-import { buildOrderMessage, sendOrderViaFormSubmit } from "./submit-order.js";
+import {
+  buildCallbackPayload,
+  buildOrderMessage,
+  sendCallbackViaFormSubmit,
+  sendOrderViaFormSubmit,
+} from "./submit-order.js";
 import { bindAllPhoneInputs, setPhoneValidity } from "./phone-ru.js";
 import { bindDateTimeInputs, dateTimeInputsAreValid, validateDateTimeInputs } from "./date-time-input.js";
 import { pictureHtml, setResponsiveImage } from "./media.js";
@@ -557,16 +562,43 @@ function bindCallbackForm() {
   const phoneInput = document.getElementById("callback-phone");
   if (!form || !(phoneInput instanceof HTMLInputElement)) return;
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!setPhoneValidity(phoneInput)) {
       phoneInput.reportValidity();
       phoneInput.focus();
       return;
     }
-    alert("Заявка принята — перезвоним в рабочее время.");
-    phoneInput.value = "";
-    phoneInput.setCustomValidity("");
+
+    const notifyEmail =
+      siteData?.order?.notifyEmail?.trim() || siteData?.shop?.email?.trim() || "";
+    if (!notifyEmail) {
+      alert("Не указан email для заявок в настройках сайта");
+      return;
+    }
+
+    const button = form.querySelector('button[type="submit"]');
+    const prevText = button instanceof HTMLButtonElement ? button.textContent : "";
+    if (button instanceof HTMLButtonElement) {
+      button.disabled = true;
+      button.textContent = "Отправляем…";
+    }
+
+    try {
+      const payload = buildCallbackPayload(phoneInput.value);
+      await sendCallbackViaFormSubmit(notifyEmail, payload);
+      phoneInput.value = "";
+      phoneInput.setCustomValidity("");
+      alert("Заявка отправлена — перезвоним в рабочее время.");
+    } catch (error) {
+      console.error(error);
+      alert(`Не удалось отправить заявку.\n\n${error.message || "Позвоните нам или попробуйте позже."}`);
+    } finally {
+      if (button instanceof HTMLButtonElement) {
+        button.disabled = false;
+        button.textContent = prevText;
+      }
+    }
   });
 }
 
