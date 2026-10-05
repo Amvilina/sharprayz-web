@@ -55,12 +55,10 @@ export function setResponsiveImage(img, path, alt = "") {
   if (!img) return;
   const { webp, fallback } = imageVariants(path);
   img.alt = alt;
+  img.src = fallback || webp;
   const picture = img.closest("picture");
   const source = picture?.querySelector("source[type='image/webp']");
-  if (source instanceof HTMLSourceElement && webp && webp !== fallback) {
-    source.srcset = webp;
-    img.src = fallback;
-    return;
-  }
-  img.src = webp || fallback;
+  if (!(source instanceof HTMLSourceElement)) return;
+  if (webp && webp !== fallback) source.srcset = webp;
+  else source.removeAttribute("srcset");
 }
