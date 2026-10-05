@@ -1,13 +1,49 @@
 [
-  { "id": "latex", "label": "Латексные", "links": [] },
-  { "id": "foil", "label": "Фольгированные", "links": [] },
-  { "id": "forwho", "label": "Для кого", "links": [] },
-  { "id": "events", "label": "События", "links": [] },
-  { "id": "heroes", "label": "Герои", "links": [] },
-  { "id": "holidays", "label": "К праздникам", "links": [] },
-  { "id": "figures", "label": "Фигуры из шаров", "links": [] },
-  { "id": "fountain", "label": "Фонтан, связки", "links": [] },
-  { "id": "svechi", "label": "Свечки", "links": [] },
-  { "id": "photozones", "label": "Фотозоны, арки", "links": [] },
-  { "id": "other", "label": "Другое", "links": [] }
+  {
+    "label": "Латексные",
+    "id": "latex"
+  },
+  {
+    "label": "Фольгированные",
+    "links": [
+      "Цифра"
+    ],
+    "id": "foil"
+  },
+  {
+    "label": "Для кого",
+    "id": "forwho"
+  },
+  {
+    "label": "События",
+    "id": "events"
+  },
+  {
+    "label": "Герои",
+    "id": "heroes"
+  },
+  {
+    "label": "К праздникам",
+    "id": "holidays"
+  },
+  {
+    "label": "Фигуры из шаров",
+    "id": "figures"
+  },
+  {
+    "label": "Фонтан, связки",
+    "id": "fountain"
+  },
+  {
+    "label": "Свечки",
+    "id": "svechi"
+  },
+  {
+    "label": "Фотозоны, арки",
+    "id": "photozones"
+  },
+  {
+    "label": "Другое",
+    "id": "other"
+  }
 ]
