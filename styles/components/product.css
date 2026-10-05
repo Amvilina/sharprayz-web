@@ -111,11 +111,14 @@
     display: grid;
     gap: var(--space-2);
     flex: 1;
+    align-content: start;
   }
 
   .product__title {
     display: -webkit-box;
     overflow: hidden;
+    align-self: start;
+    min-height: 0;
     font-size: 0.9375rem;
     font-weight: 650;
     line-height: 1.4;
@@ -134,6 +137,8 @@
   .product__description {
     display: -webkit-box;
     overflow: hidden;
+    align-self: start;
+    min-height: 0;
     font-size: 0.8125rem;
     line-height: 1.45;
     color: var(--color-muted);
