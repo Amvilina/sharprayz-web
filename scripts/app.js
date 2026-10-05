@@ -411,6 +411,7 @@ function renderCart() {
       if (!product) return "";
       return `
       <article class="cart-line">
+        <div class="cart-line__media">${productMediaHtml(product)}</div>
         <span class="cart-line__name">${product.title}</span>
         <span class="cart-line__price">${formatRub(product.price * line.qty)}</span>
         <div class="cart-line__qty">
