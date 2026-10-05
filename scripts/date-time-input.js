@@ -27,6 +27,10 @@ function parseDate(value) {
 }
 
 export function validateDeliveryDate(input) {
+  if (!input.value.trim()) {
+    input.setCustomValidity("");
+    return true;
+  }
   const date = parseDate(input.value);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -38,23 +42,35 @@ export function validateDeliveryDate(input) {
 }
 
 export function validateDeliveryTime(input) {
+  if (!input.value.trim()) {
+    input.setCustomValidity("");
+    return true;
+  }
   const match = /^(\d{2}):(\d{2})$/.exec(input.value);
   const valid = Boolean(match && Number(match[1]) < 24 && Number(match[2]) < 60);
   input.setCustomValidity(valid ? "" : "Введите время в формате ЧЧ:ММ");
   return valid;
 }
 
+function isDeliveryDateOk(value) {
+  if (!String(value).trim()) return true;
+  const date = parseDate(value);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return Boolean(date && date >= today);
+}
+
+function isDeliveryTimeOk(value) {
+  if (!String(value).trim()) return true;
+  const match = /^(\d{2}):(\d{2})$/.exec(value);
+  return Boolean(match && Number(match[1]) < 24 && Number(match[2]) < 60);
+}
+
 export function dateTimeInputsAreValid(root = document) {
   const dateInput = root.querySelector("[data-date-input]");
   const timeInput = root.querySelector("[data-time-input]");
-  if (!(dateInput instanceof HTMLInputElement) || !(timeInput instanceof HTMLInputElement)) return false;
-
-  const date = parseDate(dateInput.value);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const time = /^(\d{2}):(\d{2})$/.exec(timeInput.value);
-
-  return Boolean(date && date >= today && time && Number(time[1]) < 24 && Number(time[2]) < 60);
+  if (!(dateInput instanceof HTMLInputElement) || !(timeInput instanceof HTMLInputElement)) return true;
+  return isDeliveryDateOk(dateInput.value) && isDeliveryTimeOk(timeInput.value);
 }
 
 function bindMaskedInput(input, formatter, validator) {

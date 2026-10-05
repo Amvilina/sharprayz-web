@@ -25,7 +25,7 @@ export function buildOrderMessage(form, productsById, formatRub, getCartTotal) {
   lines.push(`Имя: ${name || "—"}`);
   lines.push(`Телефон: ${phone}`);
   lines.push(`Адрес: ${address || "—"}`);
-  lines.push(`Доставка: ${date} ${time}`);
+  lines.push(`Доставка: ${[date, time].filter(Boolean).join(" ") || "—"}`);
   lines.push(`Оплата: ${payLabel}`);
   if (comment) {
     lines.push(`Комментарий: ${comment}`);

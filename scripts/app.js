@@ -15,8 +15,8 @@ import {
   sendCallbackViaFormSubmit,
   sendOrderViaFormSubmit,
 } from "./submit-order.js";
-import { bindAllPhoneInputs, setPhoneValidity } from "./phone-ru.js";
-import { bindDateTimeInputs, dateTimeInputsAreValid, validateDateTimeInputs } from "./date-time-input.js";
+import { bindAllPhoneInputs, isPhoneRuComplete, setPhoneValidity } from "./phone-ru.js";
+import { bindDateTimeInputs, validateDateTimeInputs } from "./date-time-input.js";
 import { pictureHtml, setResponsiveImage } from "./media.js";
 import { bindSeo } from "./seo.js";
 
@@ -431,7 +431,9 @@ function renderCart() {
 function refreshOrderButtonState() {
   const button = document.getElementById("order-submit");
   if (!(button instanceof HTMLButtonElement)) return;
-  button.disabled = getCartCount() === 0 || !dateTimeInputsAreValid(checkoutForm);
+  const phoneInput = checkoutForm?.querySelector("[data-phone-ru]");
+  const phoneOk = phoneInput instanceof HTMLInputElement && isPhoneRuComplete(phoneInput.value);
+  button.disabled = getCartCount() === 0 || !phoneOk;
 }
 
 function bindSectionSwitching() {
