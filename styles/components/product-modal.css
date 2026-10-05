@@ -1,9 +1,9 @@
 @layer components {
   .product-modal__panel {
     position: relative;
-    width: min(100%, 48rem);
-    max-height: min(90dvh, 34rem);
-    overflow: hidden;
+    width: min(100%, 56rem);
+    max-height: 92dvh;
+    overflow: auto;
     border-radius: var(--radius-xl);
     background: var(--color-surface);
     box-shadow: var(--shadow-soft);
@@ -25,18 +25,13 @@
 
   .product-modal__layout {
     display: grid;
-    grid-template-columns: minmax(17rem, 0.95fr) minmax(0, 1.05fr);
-    height: min(90dvh, 34rem);
-    max-height: min(90dvh, 34rem);
+    grid-template-columns: minmax(17rem, 0.9fr) minmax(0, 1.1fr);
+    height: auto;
   }
 
   @media (max-width: 36rem) {
     .product-modal__layout {
       grid-template-columns: 1fr;
-      height: auto;
-      max-height: min(88dvh, 36rem);
-      overflow: auto;
-      overscroll-behavior: contain;
     }
   }
 
@@ -58,7 +53,7 @@
     min-height: 0;
     min-width: 0;
     max-width: 100%;
-    max-height: 100%;
+    max-height: min(72dvh, 36rem);
   }
 
   .product-modal__media img {
@@ -66,7 +61,7 @@
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: 100%;
+    max-height: min(72dvh, 36rem);
     object-fit: contain;
     border-radius: var(--radius-l);
   }
@@ -74,8 +69,6 @@
   .product-modal__body {
     padding: var(--space-6);
     padding-right: 4rem;
-    overflow: auto;
-    overscroll-behavior: contain;
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
@@ -112,6 +105,7 @@
     font-size: 1rem;
     line-height: 1.65;
     color: var(--color-ink);
+    white-space: pre-line;
   }
 
   .product-modal__actions {
@@ -128,8 +122,9 @@
       padding: var(--space-3);
     }
 
+    .product-modal__media picture,
     .product-modal__media img {
-      max-height: 15rem;
+      max-height: 16rem;
     }
 
     .product-modal__body {
