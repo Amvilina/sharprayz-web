@@ -224,6 +224,7 @@ content:
               values:
               # SECTION_SELECT_VALUES_START
                 - "Латексные"
+                -"С рисунком"
                 - "Фольгированные"
                 - "Для кого"
                 - "События"
