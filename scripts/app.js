@@ -78,10 +78,15 @@ function sectionLabelById(sectionId) {
   return siteData.nav.find((section) => section.id === sectionId)?.label;
 }
 
+function productSectionValues(product) {
+  const value = product?.section;
+  const list = Array.isArray(value) ? value : [value];
+  return list.map((item) => String(item || "").trim()).filter(Boolean);
+}
+
 function productBelongsToSection(product, sectionId) {
   const label = sectionLabelById(sectionId);
-  const value = product?.section;
-  return value === sectionId || (label && value === label);
+  return productSectionValues(product).some((value) => value === sectionId || (label && value === label));
 }
 
 async function loadSite() {

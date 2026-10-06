@@ -1,5 +1,5 @@
 /**
- * Подтягивает названия из data/sections.json в выпадающий список раздела товара в .pages.yml
+ * Подтягивает названия из data/sections.json в чекбоксы разделов товара в .pages.yml
  * Запуск: node scripts/sync-cms-sections.js
  */
 import fs from "node:fs";

@@ -216,11 +216,11 @@ content:
             required: true
             description: "В рублях. На сайте и в корзине будет одна и та же сумма."
           - name: section
-            label: Раздел
+            label: Разделы
             type: select
             required: true
             options:
-              placeholder: Выберите раздел
+              multiple: true
               values:
               # SECTION_SELECT_VALUES_START
                 - "Латексные"
