@@ -174,12 +174,12 @@ function productsForSection(sectionId) {
   let products = productsForSectionRaw(sectionId);
   const tag = activeTagBySection[sectionId];
   if (tag) {
-    const needle = tag.toLowerCase();
-    products = products.filter(
-      (product) =>
-        product.title.toLowerCase().includes(needle) ||
-        (product.description && product.description.toLowerCase().includes(needle))
-    );
+    const needle = tag.trim().toLowerCase();
+    products = products.filter((product) => {
+      const title = product.title.toLowerCase();
+      const description = String(product.description || "").toLowerCase();
+      return title.includes(needle) || description.includes(needle);
+    });
   }
   return products;
 }
@@ -225,10 +225,11 @@ function renderCatalogStage() {
             ? `<div class="catalog-panel__tags">
           <button type="button" class="category-tag" data-section-tag="${section.id}" data-tag="" aria-pressed="true">Все</button>
           ${section.links
-            .map(
-              (link) =>
-                `<button type="button" class="category-tag" data-section-tag="${section.id}" data-tag="${link}" aria-pressed="false">${link}</button>`
-            )
+            .map((link) => {
+              const label = String(link).trim();
+              if (!label) return "";
+              return `<button type="button" class="category-tag" data-section-tag="${section.id}" data-tag="${label.replace(/"/g, "&quot;")}" aria-pressed="false">${label}</button>`;
+            })
             .join("")}
         </div>`
             : ""
@@ -451,8 +452,9 @@ function bindSectionSwitching() {
     const tagBtn = event.target.closest("[data-section-tag]");
     if (tagBtn) {
       const sectionId = tagBtn.dataset.sectionTag;
-      activeTagBySection[sectionId] = tagBtn.dataset.tag || undefined;
-      if (!activeTagBySection[sectionId]) delete activeTagBySection[sectionId];
+      const tag = (tagBtn.getAttribute("data-tag") || "").trim();
+      if (tag) activeTagBySection[sectionId] = tag;
+      else delete activeTagBySection[sectionId];
 
       document.querySelectorAll(`[data-section-tag="${sectionId}"]`).forEach((btn) => {
         btn.setAttribute("aria-pressed", btn === tagBtn ? "true" : "false");
