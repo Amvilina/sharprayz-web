@@ -74,19 +74,22 @@ function prepareNavSections(sections) {
   });
 }
 
-function sectionLabelById(sectionId) {
-  return siteData.nav.find((section) => section.id === sectionId)?.label;
-}
-
 function productSectionValues(product) {
   const value = product?.section;
   const list = Array.isArray(value) ? value : [value];
   return list.map((item) => String(item || "").trim()).filter(Boolean);
 }
 
+function sameName(a, b) {
+  return String(a || "").trim().toLocaleLowerCase("ru") === String(b || "").trim().toLocaleLowerCase("ru");
+}
+
 function productBelongsToSection(product, sectionId) {
-  const label = sectionLabelById(sectionId);
-  return productSectionValues(product).some((value) => value === sectionId || (label && value === label));
+  const section = siteData.nav.find((item) => item.id === sectionId);
+  if (!section) return false;
+  const values = productSectionValues(product);
+  if (values.some((value) => sameName(value, section.id) || sameName(value, section.label))) return true;
+  return values.some((value) => (section.links || []).some((link) => sameName(value, link)));
 }
 
 async function loadSite() {
@@ -174,11 +177,12 @@ function productsForSection(sectionId) {
   let products = productsForSectionRaw(sectionId);
   const tag = activeTagBySection[sectionId];
   if (tag) {
-    const needle = tag.trim().toLowerCase();
+    const needle = tag.trim().toLocaleLowerCase("ru");
     products = products.filter((product) => {
-      const title = product.title.toLowerCase();
-      const description = String(product.description || "").toLowerCase();
-      return title.includes(needle) || description.includes(needle);
+      const hay = [product.title, product.description, ...productSectionValues(product)]
+        .join("\n")
+        .toLocaleLowerCase("ru");
+      return hay.includes(needle);
     });
   }
   return products;
