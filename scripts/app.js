@@ -12,8 +12,8 @@ import {
 import {
   buildCallbackPayload,
   buildOrderMessage,
-  sendCallbackViaFormSubmit,
-  sendOrderViaFormSubmit,
+  sendCallback,
+  sendOrder,
 } from "./submit-order.js";
 import { bindAllPhoneInputs, isPhoneRuComplete, setPhoneValidity } from "./phone-ru.js";
 import { bindDateTimeInputs, validateDateTimeInputs } from "./date-time-input.js";
@@ -542,13 +542,6 @@ async function submitCheckoutOrder() {
     return;
   }
 
-  const notifyEmail =
-    siteData?.order?.notifyEmail?.trim() || siteData?.shop?.email?.trim() || "";
-  if (!notifyEmail) {
-    alert("Не указан email для заказов в data/site.json");
-    return;
-  }
-
   const payload = buildOrderMessage(checkoutForm, productsById, formatRub, getCartTotal);
 
   button.disabled = true;
@@ -556,7 +549,7 @@ async function submitCheckoutOrder() {
   button.textContent = "Отправляем…";
 
   try {
-    await sendOrderViaFormSubmit(notifyEmail, payload);
+    await sendOrder(payload);
     clearCart();
     checkoutForm.reset();
     renderCart();
@@ -584,13 +577,6 @@ function bindCallbackForm() {
       return;
     }
 
-    const notifyEmail =
-      siteData?.order?.notifyEmail?.trim() || siteData?.shop?.email?.trim() || "";
-    if (!notifyEmail) {
-      alert("Не указан email для заявок в настройках сайта");
-      return;
-    }
-
     const button = form.querySelector('button[type="submit"]');
     const prevText = button instanceof HTMLButtonElement ? button.textContent : "";
     if (button instanceof HTMLButtonElement) {
@@ -600,7 +586,7 @@ function bindCallbackForm() {
 
     try {
       const payload = buildCallbackPayload(phoneInput.value);
-      await sendCallbackViaFormSubmit(notifyEmail, payload);
+      await sendCallback(payload);
       phoneInput.value = "";
       phoneInput.setCustomValidity("");
       alert("Заявка отправлена — перезвоним в рабочее время.");

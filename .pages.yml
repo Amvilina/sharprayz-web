@@ -82,10 +82,9 @@ content:
             type: object
             fields:
               - name: notifyEmail
-                label: Email для FormSubmit
+                label: Email магазина
                 type: string
                 required: true
-                description: "Сюда приходят заявки с сайта (formsubmit.co). После первой заявки подтвердите письмо Activate."
 
           - name: productImage
             label: Картинка по умолчанию для товаров

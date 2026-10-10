@@ -59,63 +59,48 @@ export function buildCallbackPayload(phone) {
   return { phone: phoneTrim, phoneTel, message, submittedAt };
 }
 
-/** @param {string} notifyEmail @param {{ phone: string, phoneTel: string, message: string, submittedAt: string }} payload */
-export async function sendCallbackViaFormSubmit(notifyEmail, payload) {
-  const email = notifyEmail.trim().toLowerCase();
-  if (!email.includes("@")) throw new Error("Некорректный email для заявок");
+const FORMTOMAIL_KEY = "gCknhL44ZcC47vpX";
 
-  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+function textHtml(value) {
+  return String(value || "—")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\n/g, "<br>");
+}
+
+async function sendFormToMail(title, body) {
+  if (!FORMTOMAIL_KEY) throw new Error("Не удалось отправить заявку");
+
+  const response = await fetch("https://api.formtomail.ru/send", {
     method: "POST",
     headers: {
+      Authorization: `Bearer ${FORMTOMAIL_KEY}`,
       "Content-Type": "application/json",
-      Accept: "application/json",
     },
-    body: JSON.stringify({
-      _subject: "Заказ звонка — ШАРПРАЙЗ",
-      _template: "table",
-      _captcha: "false",
-      phone: payload.phoneTel || payload.phone,
-      submitted_at: payload.submittedAt,
-      message: payload.message,
-    }),
+    body: JSON.stringify({ title, body }),
   });
 
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(result.message || "Не удалось отправить заявку");
-  }
+  if (!response.ok) throw new Error(result.message || "Не удалось отправить заявку");
   return result;
 }
 
-/** @param {string} notifyEmail */
-export async function sendOrderViaFormSubmit(notifyEmail, payload) {
-  const email = notifyEmail.trim().toLowerCase();
-  if (!email.includes("@")) throw new Error("Некорректный email для заказов");
-
-  const response = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      _subject: "Заказ с сайта ШАРПРАЙЗ",
-      _template: "table",
-      _captcha: "false",
-      name: payload.name || "Без имени",
-      phone: payload.phoneTel || payload.phone,
-      address: payload.address,
-      delivery_date: payload.date,
-      delivery_time: payload.time,
-      payment: payload.payLabel,
-      comment: payload.comment || "—",
-      message: payload.message,
-    }),
+export function sendCallback(payload) {
+  return sendFormToMail("Заказ звонка — ШАРПРАЙЗ", {
+    Телефон: textHtml(payload.phoneTel || payload.phone),
+    Время: textHtml(payload.submittedAt),
   });
+}
 
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(result.message || "Не удалось отправить заказ");
-  }
-  return result;
+export function sendOrder(payload) {
+  return sendFormToMail("Заказ с сайта ШАРПРАЙЗ", {
+    Имя: textHtml(payload.name),
+    Телефон: textHtml(payload.phoneTel || payload.phone),
+    Адрес: textHtml(payload.address),
+    Доставка: textHtml([payload.date, payload.time].filter(Boolean).join(" ")),
+    Оплата: textHtml(payload.payLabel),
+    Комментарий: textHtml(payload.comment),
+    Заказ: textHtml(payload.message),
+  });
 }
