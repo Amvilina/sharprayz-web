@@ -610,5 +610,14 @@
       "Без рисунка"
     ],
     "image": "assets/products/image (7).jpeg"
+  },
+  {
+    "title": "Конфетти",
+    "description": "Шарик 12\"/30 см.\n\nЛатексные шары обработаны полимерным гелем hifloat (для длительности полета).\n\nШар наполнен гелием.",
+    "price": 170,
+    "section": [
+      "С конфетти"
+    ],
+    "image": "assets/products/image (9).jpeg"
   }
 ]
