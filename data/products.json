@@ -628,5 +628,14 @@
       "Шары Хром"
     ],
     "image": "assets/products/image (8).jpeg"
+  },
+  {
+    "title": "Агат",
+    "description": "Шарик 12\"/30 см.\n\nЛатексные шары обработаны полимерным гелем hifloat (для длительности полета).\n\nШар наполнен гелием.",
+    "price": 200,
+    "section": [
+      "Шары Агат"
+    ],
+    "image": "assets/products/image (10).jpeg"
   }
 ]
