@@ -1148,5 +1148,15 @@
       "Герои"
     ],
     "image": "assets/products/detail (22).jpg"
+  },
+  {
+    "title": "Hello Kitty",
+    "description": "В состав воздушной композиции входит: \n\n- Шар (35\"/89 СМ)  Фигура, Hello Kitty, Маленькая кошечка, 1 шт;\n\nШар наполнен гелием.",
+    "price": 600,
+    "section": [
+      "Hello Kitty",
+      "Большие, фигурные",
+      "Герои"
+    ]
   }
 ]
