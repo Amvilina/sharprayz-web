@@ -1159,5 +1159,15 @@
       "Герои"
     ],
     "image": "assets/products/detail (23).jpg"
+  },
+  {
+    "title": "My Little Pony",
+    "description": "В состав воздушной композиции входит: \n\n- Шар (40\"/102 СМ)  Фигура,My Little Pony, Лошадка Пинки Пай, 1 шт;\n\nШар наполнен гелием.",
+    "price": 600,
+    "section": [
+      "Большие, фигурные",
+      "Герои",
+      "my Little pony"
+    ]
   }
 ]
